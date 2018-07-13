@@ -1,17 +1,16 @@
 const clientID = ffb0a28855194d07980b62449efba90e;
 const redirectURI = "http://localhost:3000/";
-const userAccessToken ;
+let accessToken;
 
 
 const Spotify = {
 
   getAccessToken () {
-    if (userAccessToken) {
-      return userAccessToken;
+    if (accessToken) {
+      return accessToken;
     };
 
-    const accessToken = window.location.href.match(/access_token=([^&]*)/);
-
+    accessToken = window.location.href.match(/access_token=([^&]*)/);
     const expiresIn = window.location.href.match(/expires_in=([^&]*)/);
 
     if (accessToken && expiresIn) {
@@ -38,7 +37,7 @@ const Spotify = {
           })
         }
       });
-    }
+    };
   }
 
   let trackArray = [];

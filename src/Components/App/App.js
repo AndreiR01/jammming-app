@@ -5,17 +5,16 @@ import './App.css';
 import Playlist from '../Playlist/Playlist';
 import SearchResults from '../SearchResults/SearchResults';
 import SearchBar from '../SearchBar/SearchBar';
-import Spotify from '../util/Spotify.js';
-
+import Spotify from '../../util/Spotify';
 
 class App extends React.Component {
 
   constructor (props) {
     super(props);
     this.state =  {
-      searchResults: [name, artist, album, id],
+      searchResults: [],
       playlistName:'Flying Cars',
-      playlistTracks: [name, artist, album, id]
+      playlistTracks: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
