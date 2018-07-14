@@ -86,7 +86,7 @@ const Spotify = {
         headers: headers,
         method:'POST',
         body:JSON.stringify({
-          uris:trackURIs,
+          uris:trackUris,
         })
       }).then(response => {
         return response.json();
