@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Playlist from '../Playlist/Playlist';
@@ -40,13 +39,13 @@ class App extends React.Component {
   }
 
   savePlaylist () {
+    const trackUris = this.state.playlistTracks.map(track => track.uri);
     Spotify.savePlaylist().then(response =>
       this.setState({
         playlistName: 'New Playlist',
         playlistTracks: []
       })
     )
-    const trackUris = this.state.playlistTracks.map(track => track.uri);
   }
 
   search (term){
