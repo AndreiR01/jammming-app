@@ -44,8 +44,8 @@ const Spotify = {
 
 
 
-  method (playlistName, trackURIs) {
-      if(!playlistName || !trackURIs.length) {
+  savePlaylist(playlistName, trackUris) {
+      if(!playlistName || !trackUris.length) {
         return;
       }
 
