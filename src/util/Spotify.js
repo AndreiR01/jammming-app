@@ -57,7 +57,7 @@ const Spotify = {
 
       let user_id;
       //FETCH GET
-      fetch (`https://api.spotify.com/v1/me`, {
+      return fetch (`https://api.spotify.com/v1/me`, {
         headers: headers
       }).then(response => {
         if(response.ok){
@@ -70,7 +70,7 @@ const Spotify = {
 
       //FETCH POST to create a Playlsit
       let playlistID;
-      fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`,{
+      return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`,{
         headers: headers,
         method:'POST',
         body:JSON.stringify( {
@@ -82,7 +82,7 @@ const Spotify = {
         playlistID = jsonResponse.id;
       });
           //fetch POST that adds tracks to a playlsit
-      fetch(`https://api.spotify.com/v1/users/{user_id}/playlists/${playlistID}/tracks`, {
+      return fetch(`https://api.spotify.com/v1/users/{user_id}/playlists/${playlistID}/tracks`, {
         headers: headers,
         method:'POST',
         body:JSON.stringify({
