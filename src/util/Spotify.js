@@ -52,7 +52,7 @@ const Spotify = {
       const access_token = this.getAccessToken();
 
       let headers = {
-        header:{Authorization:  `Bearer ${accessToken}`}
+        header:{Authorization:  `Bearer ${access_token}`}
       }
 
       let user_id;
