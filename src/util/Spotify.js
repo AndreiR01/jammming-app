@@ -65,32 +65,30 @@ const Spotify = {
         }
       }).then(jsonResponse => {
          user_id = jsonResponse.id;
+         let playlistID;
+         return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`,{
+           headers: headers,
+           method:'POST',
+           body:JSON.stringify( {
+             name: playlistName
+           })
+         }).then(response => {
+           return response.json();
+         }).then(jsonResponse => {
+           playlistID = jsonResponse.id;
+           return fetch(`https://api.spotify.com/v1/users/{user_id}/playlists/${playlistID}/tracks`, {
+             headers: headers,
+             method:'POST',
+             body:JSON.stringify({
+               uris:trackUris,
+             })
+           });
+         });
       });
 
 
       //FETCH POST to create a Playlsit
-      let playlistID;
-      return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`,{
-        headers: headers,
-        method:'POST',
-        body:JSON.stringify( {
-          name: playlistName
-        })
-      }).then(response => {
-        return response.json();
-      }).then(jsonResponse => {
-        playlistID = jsonResponse.id;
-      });
           //fetch POST that adds tracks to a playlsit
-      return fetch(`https://api.spotify.com/v1/users/{user_id}/playlists/${playlistID}/tracks`, {
-        headers: headers,
-        method:'POST',
-        body:JSON.stringify({
-          uris:trackUris,
-        })
-      }).then(response => {
-        return response.json();
-      });
   }
 }
 
