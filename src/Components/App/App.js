@@ -35,6 +35,7 @@ class App extends React.Component {
   }
 
   removeTrack (track) {
+    console.log(`removeTrack is rendered`);
     if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
         return;
       }
