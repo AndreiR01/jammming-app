@@ -22,10 +22,11 @@ const Spotify = {
       window.location = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
     };
   },
-  
+
   search (term) {
+    const accessToken = Spotify.getAccessToken();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`,{
-      headers: {Authorisation: `Bearer ${accessToken}`}
+      headers: {Authorization: `Bearer ${accessToken}`}
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
@@ -51,7 +52,7 @@ const Spotify = {
         return;
       }
 
-      const access_token = this.getAccessToken();
+      const access_token = Spotify.getAccessToken();
 
       let headers = {
         header:{Authorization:  `Bearer ${access_token}`}
