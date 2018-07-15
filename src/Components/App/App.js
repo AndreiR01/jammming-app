@@ -34,27 +34,25 @@ class App extends React.Component {
     });
   }
 
-  removeTrack (track) {
-    console.log(`removeTrack is rendered`);
-    if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-        return;
-      }
-  }
+  removeTrack(track) {
+     let tracks = this.state.playlistTracks;
+     tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+     this.setState({playlistTracks: tracks});
+   }
 
   updatePlaylistName (name) {
     this.setState({playlistName:name});
   }
 
-  savePlaylist () {
-    const trackUris = this.state.playlistTracks.map(track => track.uri);
-    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() =>
-      this.setState({
-        playlistName: 'New Playlist',
-        playlistTracks: []
-      })
-    )
-  }
-
+  savePlaylist() {
+     const trackUris = this.state.playlistTracks.map(track => track.uri);
+     Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
+       this.setState({
+         playlistName: 'New Playlist',
+         playlistTracks: []
+       });
+     });
+   }
   search(term) {
     Spotify.search(term).then(tracks =>
         this.setState({searchResults: tracks}));
