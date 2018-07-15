@@ -86,7 +86,7 @@ const Spotify = {
            return response.json();
          }).then(jsonResponse => {
            playlistID = jsonResponse.id;
-           return fetch(`https://api.spotify.com/v1/users/{user_id}/playlists/${playlistID}/tracks`, {
+           return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists/${playlistID}/tracks`, {
              headers: headers,
              method:'POST',
              body:JSON.stringify({
@@ -95,11 +95,10 @@ const Spotify = {
            });
          });
       });
-
-
-      //FETCH POST to create a Playlsit
-          //fetch POST that adds tracks to a playlsit
   }
+
+
+
 }
 
 
