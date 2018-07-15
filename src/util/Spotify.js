@@ -22,21 +22,23 @@ const Spotify = {
       window.location = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
     };
   },
+  
   search (term) {
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`,{
       headers: {Authorisation: `Bearer ${accessToken}`}
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
-      if(jsonResponse.track) {
-        return jsonResponse.track.map( track => ({
+      if(!jsonResponse.tracks) {
+        return [];
+      };
+        return jsonResponse.tracks.items.map( track => ({
           id: track.id,
-          Name: track.name,
-          Artist: track.artists[0].name,
-          Album: track.album.name,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
           uri: track.uri
         }))
-      };
     });
   },
 
