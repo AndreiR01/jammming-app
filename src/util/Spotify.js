@@ -1,32 +1,39 @@
 const clientID = 'ffb0a28855194d07980b62449efba90e';
 const redirectURI = "http://localhost:3000/";
+
 let accessToken;
 
 
 const Spotify = {
 
-  getAccessToken () {
+  getAccessToken() {
+		if (accessToken){
+			return accessToken;
+		}
 
-      if (accessToken) {
-        console.log(accessToken);
-        return accessToken;
-      };
+		else{
+			const url = window.location.href;
+			const newToken = url.match(/access_token=([^&]*)/);
+			const newExpire = url.match(/expires_in=([^&]*)/);
 
-      accessToken = window.location.href.match(/access_token=([^&]*)/);
 
-      let expiresIn = window.location.href.match(/expires_in=([^&]*)/);
+			if(newToken && newExpire){
+				accessToken = newToken[1];
+				expiresIn = newExpire[1];
 
-      if (accessToken && expiresIn) {
-        console.log(accessToken);
-        accessToken = accessToken[1];
-        expiresIn = expiresIn[1];
-        console.log(accessToken,'after arr [1]');
-        window.setTimeout(() => accessToken = '', expiresIn * 1000);
-        return accessToken;
-      }else {
-        window.location = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
-      };
-    },
+				window.setTimeout(()=> accessToken='',expiresIn * 1000)
+				window.history.pushState('Access Token', null,'/')
+				return accessToken;
+			}
+
+			else{
+				const urlstring = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
+				window.location = urlstring;
+			}
+
+		}
+
+ 	 },
 
   search (term) {
     const accessToken = Spotify.getAccessToken();
